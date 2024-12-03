@@ -1,0 +1,98 @@
+/* 
+h1{
+    text-align: center;
+    color: white;
+    
+}
+p{
+    color: white;
+    text-align: left;
+    
+}
+.Mission-card{
+    background-color: rgba(246, 246, 246, 0.38);
+    width: 214;
+    height: 317;
+    text-size-adjust: 16emu;
+    text-wrap-mode:wrap 
+} */
+
+/* General styles */
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+.Mission-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #000000; /* Dark background */
+    color: white;
+    height: 100vh; /* Full height */
+  }
+  
+  /* Title styles */
+  .Mission-title {
+    font-size: 56px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    margin-top: 1px;
+    font-family: 'Righteous', cursive;
+  }
+  
+  /* Cards container */
+  .Mission-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Individual card */
+  .Mission-card {
+    background-color: #2c2c2c; /* Card background */
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px; /* Adjust width as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .Mission-card h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    
+    font-family: 'Righteous', cursive;
+  }
+  
+  .Mission-card p {
+    font-size: 20px;
+    line-height: 1.5;
+    text-align: left;
+    font-family: 'Righteous', cursive;
+  }
+  
+  /* Microphone button */
+  .Mission-action {
+    margin-top: 20px;
+  }
+  
+  .Microphone-btn {
+    
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: black;
+  }
+
+  .button-icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-items: center;
+    margin-left: 0px;
+    margin-right: 10px;
+  }
+  
