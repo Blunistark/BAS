@@ -2,6 +2,9 @@ import './Squad-info.css';
 
 function Squad_info(){
 
+        function Handleroute(){
+            console.log("pressed")
+        }
     return(
         <>
         <div>
@@ -75,13 +78,11 @@ function Squad_info(){
 
                 </div>
         </div>
-        <div className="Mission-action">
-      <button className="Microphone-btn">
-  <img src='./mic.jpeg' alt="icon" className="button-icon" />
-</button>
-      </div>
+        
         </>
     );
     
 }
 export default Squad_info
+//       <button className="Microphone-btn">
+//   <img src='./mic.jpeg' alt="icon" className="button-icon" />

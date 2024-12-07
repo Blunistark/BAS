@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { createClient } from "@supabase/supabase-js";
 import './MapScreen.css';
+import Navbar from "./Navbar";
 
 // Initialize Supabase client using environment variables
 const supabaseUrl = "https://iussqunpdvvbffbcecsb.supabase.co"; // Replace with your Supabase URL
@@ -201,9 +202,11 @@ const MapScreen = () => {
   return (
     <div className="map-screen">
       {error && <div className="error-message">{error}</div>}
-      <div className="controls">
+
+
+      <div className="Overlay">
         <div className="soldier-list">
-          <h2>Soldiers</h2>
+          <p>Soldiers</p>
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -216,29 +219,47 @@ const MapScreen = () => {
             </ul>
           )}
         </div>
-        <div className="enemy-list">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <ul>
-              {enemies.map((enemy) => (
-                <li key={enemy.id}>
-                  <span>{enemy.name}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className="buttons">
-          <button onClick={toggleAddEnemy}>
-            {isAddingEnemy ? "Cancel Adding Enemy" : "Add Enemy"}
-          </button>
-          <button onClick={toggleRemoveEnemy}>
-            {isRemovingEnemy ? "Cancel Removing Enemy" : "Remove Enemy"}
-          </button>
-          <button onClick={showAllMarkers}>Show All</button>
+      </div>
+
+
+      <div className="Enemy-Overlay">
+        <div className="soldier-list">
+            <p>Enemies</p>
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <ul>
+                {enemies.map((enemy) => (
+                  <li key={enemy.id}>
+                    <span>{enemy.name}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
       </div>
+
+
+
+      <div className="Buttons-Overlay">
+        <div className="buttons">
+          <button className="key" onClick={toggleAddEnemy}>
+            {isAddingEnemy ? "Cancel Adding Enemy" : "Add Enemy"}
+          </button>
+          <button className="key" onClick={toggleRemoveEnemy}>
+            {isRemovingEnemy ? "Cancel Removing Enemy" : "Remove Enemy"}
+          </button>
+          <button className="key" onClick={showAllMarkers}>Show All</button>
+        </div>
+      </div>
+
+
+      <div className="navbar-Overlay">
+        <div className="buttons">
+          <Navbar className="Navbar"/> 
+        </div>
+      </div>
+
 
       {loading ? (
         <div className="loading-indicator">Loading map...</div>
@@ -286,6 +307,8 @@ const MapScreen = () => {
                 <br />
                 Longitude: {enemy.longitude}
               </Popup>
+
+              
             </Marker>
           ))}
         </MapContainer>

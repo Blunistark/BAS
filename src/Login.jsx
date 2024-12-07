@@ -1,6 +1,6 @@
 import './Login.css';
-import { useState } from 'react';
-import supabase from '../../utils/supabase';
+import React, { useState } from 'react';
+import supabase from './supabase.js';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -18,7 +18,7 @@ function Login() {
         if (error) {
             setError(error.message);
         } else {
-            navigate('/map-screen'); // Route to a protected dashboard or main page
+            navigate('*'); // Route to a protected dashboard or main page
         }
     };
 
@@ -51,7 +51,7 @@ function Login() {
                       Login</button>
                     <h3>
                         Don't have an account?{' '}
-                        <a onClick={() => navigate('/*')} className='SignupButton'>Sign up here</a>
+                        <a onClick={() => navigate('/signup')} className='SignupButton'>Sign up here</a>
                     </h3>
                 </div>
                 {error && <p className="error">{error}</p>}

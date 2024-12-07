@@ -1,0 +1,67 @@
+.Communication-screen{
+    display: flex;
+  flex-direction: row;
+  background-color: black;
+  color: white;
+  height: 100vh;
+  position: relative;
+  z-index: 0;
+  justify-content: center;
+  margin: auto;
+  
+
+}
+.Msg-Conaitner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px;
+    border: 1px solid #ccc;
+    height: 400px; /* Adjust height as needed */
+    overflow-y: auto; /* Add scrolling if there are many messages */
+    margin: auto;
+    width: 950px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.Msg-Conaitner::-webkit-scrollbar {
+    display: none; 
+}
+
+.Msg-Keeper {
+    width: 100%;
+}
+
+.Msg-Holder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ensure items align to the left */
+    gap: 5px; /* Add spacing between the h3 tags */
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.keyboard {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.Mic {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Mic:hover {
+    background-color: #0056b3;
+}

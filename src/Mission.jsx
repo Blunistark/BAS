@@ -20,10 +20,14 @@
 import React from 'react';
 import './Mission.css';
 
+function Handleroute(){
+  console.log("pressed")
+}
 
 function Mission(){
   return (
-    <div className="Mission-container">
+    <>
+<div className="Mission-container">
       <h1 className="Mission-title">MISSION INFO</h1>
       <div className="Mission-cards">
         <div className="Mission-card">
@@ -33,8 +37,7 @@ function Mission(){
              nesciunt deleniti quia odit, consequatur pariatur libero repudiandae accusantium 
              necessitatibus asperiores quod! Cumque hic blanditiis voluptatibus repellendus 
              quibusdam molestias vero omnis facere nam deserunt, sit, eius totam assumenda 
-             atque commodi ab sed aspernatur quidem. Reprehenderit quibusdam enim aspernatur
-              nemo!
+             atque commodi ab sed aspernatur quidem. 
           </p>
         </div>
         <div className="Mission-card">
@@ -44,8 +47,7 @@ function Mission(){
              nesciunt deleniti quia odit, consequatur pariatur libero repudiandae accusantium 
              necessitatibus asperiores quod! Cumque hic blanditiis voluptatibus repellendus 
              quibusdam molestias vero omnis facere nam deserunt, sit, eius totam assumenda 
-             atque commodi ab sed aspernatur quidem. Reprehenderit quibusdam enim aspernatur
-              nemo!
+             atque commodi ab sed aspernatur quidem. 
           </p>
         </div>
         <div className="Mission-card">
@@ -55,17 +57,13 @@ function Mission(){
              nesciunt deleniti quia odit, consequatur pariatur libero repudiandae accusantium 
              necessitatibus asperiores quod! Cumque hic blanditiis voluptatibus repellendus 
              quibusdam molestias vero omnis facere nam deserunt, sit, eius totam assumenda 
-             atque commodi ab sed aspernatur quidem. Reprehenderit quibusdam enim aspernatur
-              nemo!
+             atque commodi ab sed aspernatur quidem. 
           </p>
         </div>
-      </div>
-      <div className="Mission-action">
-      <button className="Microphone-btn">
-  <img src='./mic.jpeg' alt="icon" className="button-icon" />
-</button>
       </div>
     </div>
+    
+</>
   );
 };
 
