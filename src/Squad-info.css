@@ -1,79 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-
-.container {
-   
-
-    display: grid;
-    grid-auto-flow: column;
-    overflow-x: auto;
-    grid-auto-columns: 26%;
-    position: relative; 
-    width: fit-content;
-    height: 550px;
-    overflow-x: scroll; 
-    margin-top: 50px;
-    background-color: black;
-    margin-bottom: 35px;
-    }
-    .container::-webkit-scrollbar {
-        display: none; 
-    }
-
-.soldier-card {
-    background-color: rgba(64, 64, 64, 0.9);
-    flex: 1; 
-    margin: 5px; 
-    border-radius: 15px;
-    max-width: 1000px;
-    
-}
-/* check whatsapp */
-
-h1  {
-    color: white;
-    font-family: 'Righteous', cursive;
-    text-align: center;
-    font-size: 40px;
-    
-
-}
-h2{
-    color: white;
-    font-family: 'Righteous', cursive;
-    font-size: 38px;
-    padding-left: 15px;
-    text-align: center;
-}
-p{
-    color:white;
-    font-family: 'Righteous', cursive;
-    font-size: 20px;
-    padding-left: 15px;
-    line-height: 25px;
-
-}
-.Mission-action {
-    margin-top: 20px;
+/* General Styles */
+/* Hide the global page scrollbar but allow scrolling on the container */
+body {
+    overflow: hidden; /* Hides the entire page scrollbar */
   }
-
-  .Microphone-btn {
-    
-    width: 25px;
-    height: 25px;
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    background-color: black;
-    margin-left: 750px;
-  }
-.BottomBar{
+  
+  .container {
     display: flex;
-    justify-content: center;
-    gap: 42px;
-    margin-top: 15px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top : 5px;
-    padding-bottom: 5px;
-}
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Enables horizontal scroll for the container */
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .container::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar in Webkit browsers */
+  }
+  
+.Squad-info-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #181818;
+    color: white;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .Squad-info-title {
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px; /* Increased margin for better spacing */
+    font-weight: bold;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    margin-bottom: 20px;
+    overflow-x: auto; /* Enables horizontal scroll */
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 10px; /* Adds space at the bottom for scroll */
+    padding-top: 10px; /* Adds space at the bottom for scroll */
+    -ms-overflow-style: none;  /* Hides scrollbar in IE */
+    scrollbar-width: none;  /* Hides scrollbar in Firefox */
+  }
+  
+  .container::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar in Webkit browsers (Chrome, Safari) */
+  }
+  
+  .soldier-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap; /* Prevent wrapping, keep items in a single row */
+    width: auto; /* Let the content width adjust to its size */
+  }
+  
+  .soldier-card {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    width: 280px;
+    color: #ddd;
+    height: 220px; /* Set fixed height for the card */
+    overflow-y: auto; /* Allows scrolling for individual card content */
+    transition: transform 0.3s ease;
+  }
+  
+  .soldier-card:hover {
+    transform: translateY(-5px); /* Adds subtle lift effect on hover */
+  }
+  
+  .soldier-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .soldier-card p {
+    font-size: 16px;
+    line-height: 1.5;
+    max-height: 120px; /* Prevents text overflow */
+    overflow: hidden; /* Hides extra text */
+    text-overflow: ellipsis; /* Adds ellipsis to indicate text overflow */
+  }
+  
+  /* Microphone Button Styles */
+  .Microphone-btn {
+    position: fixed;
+    bottom: 100px; /* Position above the navbar */
+    left: 50%; /* Centers the button horizontally */
+    transform: translateX(-50%); /* Corrects the position to exactly center */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .Microphone-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .button-icon {
+    width: 60px;
+    height: 60px;
+    filter: brightness(0) invert(1); /* Inverts the color for better contrast */
+  }
+  
+  .Microphone-btn.recording .button-icon {
+    filter: brightness(1) saturate(3); /* Change the icon color when recording */
+  }
+  
+  /* Navbar Overlay */
+  .navbar-overlay {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  /* Styling for the Navbar (adjust as needed) */
+  .navbar-overlay {
+    background-color: #222;
+    padding: 10px 0;
+    color: white;
+  }
+  

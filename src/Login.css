@@ -1,74 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
-h1{
+body {
+    background-image: url('./assets/bms.jpg');
+    background-size: cover; /* Ensure the background image covers the entire screen */
+    background-position: center; /* Center the background image */
+    font-family: 'Righteous', cursive;
+    margin: 0; /* Remove default margins */
+    padding: 0;
+    height: 100vh; /* Set height to full viewport */
+    overflow: hidden; /* Prevent unwanted scrollbars */
     color: white;
-    font-size: 42cm;
 }
-p{
-    color: white;
-    text-align: left;
-}
-h3{
-    color: white;
-}
-body{
-    background-image: url("./assets/bms.jpg");
-}
-.container{
+
+.container {
     background-color: rgba(64, 64, 64, 0.9);
-    margin-left: 15px;
-    border-radius: 25px; 
-    height: 500px;
+    border-radius: 25px;
+    margin: auto;
+    padding: 20px;
     width: 350px;
-    margin-top: 125px;
+    height: auto; /* Let the content dictate the height */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the container */
 }
-.form{
+
+.form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: center;
-    width: 350px;
-    gap: 1px;
-    
-}
-.login{
-    padding-left: 15px;
-    
+    gap: 20px;
 }
 
-.input{
-    margin-left: 15px;
-    border-radius: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 250px;
-    color: black;
-    font-size: 1.3rem;
+.login {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
-.LoginButton{
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+
+.input {
+    border: 1px solid white;
     border-radius: 10px;
-    margin-left: 15px;
+    padding: 10px;
+    width: calc(100% - 20px); /* Adjust for padding */
+    font-size: 1.1rem;
+    color: black;
+}
+
+.LoginButton {
+    background-color: aqua;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    font-size: 1.2rem;
     font-family: 'Righteous', cursive;
     text-align: center;
-    cursor: pointer; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.LoginButton:hover {
+    background-color: white;
     color: black;
 }
-.SignupButton{
-    cursor: pointer;
-    color: aqua;
 
+.SignupButton {
+    color: aqua;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1rem;
 }
-h3{
-    padding-left: 15px;
-}
-h4{
-    font-size: 1.9rem;
-    color: white;
-    margin-left: 15px;
-    margin-top: 1px;
-    margin-bottom: 1px;
+
+.error {
+    color: red;
+    font-size: 1rem;
+    text-align: center;
 }

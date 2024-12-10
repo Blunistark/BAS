@@ -10,54 +10,57 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        const { error } = await supabase.auth.signInWithPassword({
-            email: username,
-            password,
-        });
+        try {
+            const { data: session, error } = await supabase.auth.signInWithPassword({
+                email: username,
+                password,
+            });
 
-        if (error) {
-            setError(error.message);
-        } else {
-            navigate('*'); // Route to a protected dashboard or main page
+            if (error) {
+                setError(error.message);
+            } else {
+                localStorage.setItem('userEmail', session.user.email);
+                navigate('/MapScreen');
+            }
+        } catch (err) {
+            setError('An unexpected error occurred.');
         }
     };
 
     return (
-        <>
-            
-            <div className="container">
-                <div className="form">
-                    <h1
-                      className="login"
-                    >LOGIN</h1>
-                    <h4>Username</h4>
-                    <input
-                        className="input"
-                        type="email"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <br />
-                    <h4>Password</h4>
-                    <input
-                        className="input"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <br />
-                    <button onClick={handleLogin} 
-                    className='LoginButton'>
-                      Login</button>
-                    <h3>
-                        Don't have an account?{' '}
-                        <a onClick={() => navigate('/signup')} className='SignupButton'>Sign up here</a>
-                    </h3>
-                </div>
+        <div className="container">
+            <div className="form">
+                <h1 className="login">Login</h1>
+                <label htmlFor="username">Username</label>
+                <input
+                    id="username"
+                    className="input"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                    id="password"
+                    className="input"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button onClick={handleLogin} className="LoginButton">
+                    Login
+                </button>
+                <p>
+                    Don't have an account?{' '}
+                    <span onClick={() => navigate('/signup')} className="SignupButton">
+                        Sign up here
+                    </span>
+                </p>
                 {error && <p className="error">{error}</p>}
-                <br />
             </div>
-        </>
+        </div>
     );
 }
 

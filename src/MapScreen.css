@@ -117,3 +117,10 @@ button {
 h3{
   size: 25rem;
 }
+
+.map-container .leaflet-control-zoom {
+  position: absolute !important;
+  bottom: 20px !important; /* Adjust the distance as needed */
+  left: 20px !important;  /* Adjust the distance as needed */
+}
+

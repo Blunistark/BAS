@@ -1,32 +1,48 @@
-.Communication-screen{
+.Communication-screen {
     display: flex;
-  flex-direction: row;
-  background-color: black;
-  color: white;
-  height: 100vh;
-  position: relative;
-  z-index: 0;
-  justify-content: center;
-  margin: auto;
-  
-
+    flex-direction: column; /* Align content vertically */
+    justify-content: flex-start; /* Align items to the top */
+    align-items: center; /* Center content horizontally */
+    background-color: #000000; /* Dark background for the whole page */
+    color: white;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    padding: 10px;
+    overflow: hidden;
 }
-.Msg-Conaitner {
+
+.Communication-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #d1d1d1; /* Light gray color for the title */
+}
+
+.Msg-Container {
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
-    padding: 10px;
-    border: 1px solid #ccc;
-    height: 400px; /* Adjust height as needed */
-    overflow-y: auto; /* Add scrolling if there are many messages */
-    margin: auto;
-    width: 950px;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 950px; /* Max width to avoid overly wide chat box */
+    background-color: #2a2a2a; /* Darker background for the chat box */
+    height: 100%; /* Full height of the available space */
     margin-top: 15px;
     margin-bottom: 15px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-.Msg-Conaitner::-webkit-scrollbar {
-    display: none; 
+
+.Msg-Container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.Msg-Container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
 }
 
 .Msg-Keeper {
@@ -36,32 +52,94 @@
 .Msg-Holder {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Ensure items align to the left */
-    gap: 5px; /* Add spacing between the h3 tags */
+    align-items: flex-start;
+    gap: 15px;
+    overflow-y: auto;
 }
 
 h3 {
     margin: 0;
-    padding: 0;
+    padding: 12px;
+    border-radius: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 1.5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.Person1 {
+    background-color: #3c3c3c; /* Dark gray for incoming messages */
+    align-self: flex-start;
+}
+
+.Person2 {
+    background-color: #4b8cf5; /* Messenger blue for outgoing messages */
+    align-self: flex-end;
+}
+
+.Person1,
+.Person2 {
+    position: relative;
+    max-width: 65%;
+    word-wrap: break-word;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Person1::after,
+.Person2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #2a2a2a;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.Person1::after {
+    left: -5px;
+}
+
+.Person2::after {
+    right: -5px;
 }
 
 .keyboard {
     position: absolute;
-    bottom: 10px;
-    width: 100%;
+    bottom: 80px; /* Adjusted to make room for the navbar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
     text-align: center;
-    margin-top: 15px;
+    z-index: 1;
 }
 
 .Mic {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    padding: 0;
+}
+
+.Mic-Icon {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.Recording .Mic-Icon {
+    transform: rotate(45deg); /* Slight rotation when recording */
 }
 
 .Mic:hover {
-    background-color: #0056b3;
+    opacity: 0.8;
+}
+
+.navbar-Overlay {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
 }

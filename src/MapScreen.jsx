@@ -5,11 +5,8 @@ import L from "leaflet";
 import { createClient } from "@supabase/supabase-js";
 import './MapScreen.css';
 import Navbar from "./Navbar";
+import supabase from "./supabase";
 
-// Initialize Supabase client using environment variables
-const supabaseUrl = "https://iussqunpdvvbffbcecsb.supabase.co"; // Replace with your Supabase URL
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1c3NxdW5wZHZ2YmZmYmNlY3NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI4Nzc2NzMsImV4cCI6MjA0ODQ1MzY3M30.dYPVOnvXFVCVe_RARa2Cutt0Gsiug3w3w0oCdezIah0"; // Replace with your Supabase anon key
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Custom marker icons
 const soldierIcon = new L.Icon({
@@ -254,11 +251,11 @@ const MapScreen = () => {
       </div>
 
 
-      <div className="navbar-Overlay">
+      {/* <div className="navbar-Overlay">
         <div className="buttons">
           <Navbar className="Navbar"/> 
         </div>
-      </div>
+      </div> */}
 
 
       {loading ? (
@@ -269,7 +266,7 @@ const MapScreen = () => {
           zoom={10}
           className="map-container"
           ref={mapRef}
-          zoomControl={false}
+          zoomControl={true}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

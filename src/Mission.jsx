@@ -1,70 +1,55 @@
-// import './Mission.css'
-// function Mission(){
-//     return(
-//         <>
-//             <h1>MISSION INFO</h1>
-//         <div className="Mission-card">
-//             <p>AND THIS IS ABOUT THE MISSION AND ALL 
-//                 THE LONG STUFF AND I WANT TO 
-//                 FILL THIS WHOLE TEXT BOX SO U CAN SEE
-//                  HOW IT WILL LOOK, AND HERE I 
-//                 AM TEXTING FOR NO REASON</p>
-//         </div>
-//         </>
-//     );
-// }
-
-// export default Mission
-
-
 import React from 'react';
 import './Mission.css';
+import Navbar from "./Navbar";
 
-function Handleroute(){
-  console.log("pressed")
-}
-
-function Mission(){
+function Mission() {
   return (
     <>
-<div className="Mission-container">
-      <h1 className="Mission-title">MISSION INFO</h1>
-      <div className="Mission-cards">
-        <div className="Mission-card">
-          <h2>HEADING</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam voluptates molestias
-             nesciunt deleniti quia odit, consequatur pariatur libero repudiandae accusantium 
-             necessitatibus asperiores quod! Cumque hic blanditiis voluptatibus repellendus 
-             quibusdam molestias vero omnis facere nam deserunt, sit, eius totam assumenda 
-             atque commodi ab sed aspernatur quidem. 
-          </p>
+      <div className="Mission-container">
+        <h1 className="Mission-title">MISSION INFO</h1>
+        <div className="Mission-cards">
+          <div className="Mission-card">
+            <h2>Operation Sunrise</h2>
+            <div className="Mission-subcard">
+              <h3>Details</h3>
+              <ul>
+                <li>Objective: Secure communication towers</li>
+                <li>Timeframe: 48 hours</li>
+                <li>Team: Alpha Squad</li>
+              </ul>
+            </div>
+          </div>
+          <div className="Mission-card">
+            <h2>Reconnaissance Omega</h2>
+            <div className="Mission-subcard">
+              <h3>Details</h3>
+              <ul>
+                <li>Objective: Monitor and report troop activity</li>
+                <li>Timeframe: 72 hours</li>
+                <li>Team: Bravo Unit</li>
+              </ul>
+            </div>
+          </div>
+          <div className="Mission-card">
+            <h2>Rescue Echo</h2>
+            <div className="Mission-subcard">
+              <h3>Details</h3>
+              <ul>
+                <li>Objective: Extract hostages</li>
+                <li>Timeframe: 24 hours</li>
+                <li>Team: Delta Force</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="Mission-card">
-          <h2>HEADING</h2>
-          <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam voluptates molestias
-             nesciunt deleniti quia odit, consequatur pariatur libero repudiandae accusantium 
-             necessitatibus asperiores quod! Cumque hic blanditiis voluptatibus repellendus 
-             quibusdam molestias vero omnis facere nam deserunt, sit, eius totam assumenda 
-             atque commodi ab sed aspernatur quidem. 
-          </p>
-        </div>
-        <div className="Mission-card">
-          <h2>HEADING</h2>
-          <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam voluptates molestias
-             nesciunt deleniti quia odit, consequatur pariatur libero repudiandae accusantium 
-             necessitatibus asperiores quod! Cumque hic blanditiis voluptatibus repellendus 
-             quibusdam molestias vero omnis facere nam deserunt, sit, eius totam assumenda 
-             atque commodi ab sed aspernatur quidem. 
-          </p>
-        </div>
+        {/* <div className="navbar-Overlay">
+          <div className="buttons">
+            <Navbar className="Navbar" />
+          </div>
+        </div> */}
       </div>
-    </div>
-    
-</>
+    </>
   );
-};
+}
 
 export default Mission;
