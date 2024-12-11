@@ -11,6 +11,7 @@ function Navbar() {
             <button className="NavButton"  onClick={() => navigate('/MapScreen')}>Map</button>
             <button className="NavButton"  onClick={() => navigate('/Communication')}>Comms</button>
             <button className="NavButton"  onClick={() => navigate('/Rearcam')}>RearCam</button>
+            <button className="NavButton"  onClick={() => navigate('/NightVisionCam')}>NightVisionCam</button>
         </div>
     );
 }

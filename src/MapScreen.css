@@ -87,6 +87,7 @@ button {
   left: 85%;
   color: white;
   padding: 10px;
+  padding-bottom: 50px;
   border-radius: 5px;
   z-index: 1000;
 }
@@ -123,4 +124,41 @@ h3{
   bottom: 20px !important; /* Adjust the distance as needed */
   left: 20px !important;  /* Adjust the distance as needed */
 }
+/* Add these styles for the blinking effect and low pulse notification */
+.blinking {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.low-pulse-notification {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 99, 71, 0.8);
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.error-message {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 

@@ -7,7 +7,6 @@ import './MapScreen.css';
 import Navbar from "./Navbar";
 import supabase from "./supabase";
 
-
 // Custom marker icons
 const soldierIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
@@ -26,6 +25,7 @@ const enemyIcon = new L.Icon({
 const MapScreen = () => {
   const [soldiers, setSoldiers] = useState([]);
   const [enemies, setEnemies] = useState([]);
+  const [soldierVitals, setSoldierVitals] = useState(null); // Store soldier vitals
   const [isAddingEnemy, setIsAddingEnemy] = useState(false);
   const [isRemovingEnemy, setIsRemovingEnemy] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -40,23 +40,58 @@ const MapScreen = () => {
     setLoading(true);
     setError(null);
     try {
+      // Fetch soldiers data
       const { data: soldiersData, error: soldiersError } = await supabase
         .from("soldiers")
         .select("*");
       if (soldiersError) throw soldiersError;
       setSoldiers(soldiersData);
 
+      // Fetch enemies data
       const { data: enemiesData, error: enemiesError } = await supabase
         .from("enemies")
         .select("*");
       if (enemiesError) throw enemiesError;
       setEnemies(enemiesData);
+
+      // Fetch vitals for soldier 1
+      const { data: vitalsData, error: vitalsError } = await supabase
+        .from("soldier_vitals")
+        .select("*")
+        .eq("soldier_id", 1)
+        .single(); // Fetch single record for soldier 1
+      if (vitalsError) throw vitalsError;
+      setSoldierVitals(vitalsData);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to load data. Please try again.");
     } finally {
       setLoading(false);
     }
+  }, []);
+
+  // Function to determine pulse color based on heart rate
+  const getPulseColor = (heartRate) => {
+    if (heartRate >= 60 && heartRate <= 100) {
+      return "green"; // Good BPM
+    }
+    return "red"; // Not good BPM
+  };
+
+  // Subscribe to real-time updates for soldier vitals (only for soldier 1)
+  useEffect(() => {
+    const vitalsChannel = supabase
+      .channel("soldier_vitals")
+      .on("postgres_changes", { event: "*", schema: "public", table: "soldier_vitals" }, (payload) => {
+        if (payload.new.soldier_id === 1) {
+          setSoldierVitals(payload.new); // Update only soldier 1's vitals
+        }
+      })
+      .subscribe();
+
+    return () => {
+      vitalsChannel.unsubscribe();
+    };
   }, []);
 
   // Add enemy at clicked location
@@ -200,7 +235,6 @@ const MapScreen = () => {
     <div className="map-screen">
       {error && <div className="error-message">{error}</div>}
 
-
       <div className="Overlay">
         <div className="soldier-list">
           <p>Soldiers</p>
@@ -211,6 +245,23 @@ const MapScreen = () => {
               {soldiers.map((soldier) => (
                 <li key={soldier.id} onClick={() => zoomToSoldier(soldier.latitude, soldier.longitude)}>
                   <span>{soldier.name}</span>
+                  {/* Show vitals for soldier 1 */}
+                  {soldier.id === 1 && soldierVitals && (
+                    <div>
+                      <strong>Heart Rate:</strong> {soldierVitals.heart_rate} bpm
+                      <br />
+                      <strong>Temperature:</strong> {soldierVitals.temperature} °C
+                      <div
+                        className="pulse-line"
+                        style={{
+                          backgroundColor: getPulseColor(soldierVitals.heart_rate),
+                          height: "5px",
+                          width: "50px",
+                          marginTop: "5px",
+                        }}
+                      />
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
@@ -218,25 +269,22 @@ const MapScreen = () => {
         </div>
       </div>
 
-
       <div className="Enemy-Overlay">
         <div className="soldier-list">
-            <p>Enemies</p>
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <ul>
-                {enemies.map((enemy) => (
-                  <li key={enemy.id}>
-                    <span>{enemy.name}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+          <p>Enemies</p>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <ul>
+              {enemies.map((enemy) => (
+                <li key={enemy.id}>
+                  <span>{enemy.name}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
-
-
 
       <div className="Buttons-Overlay">
         <div className="buttons">
@@ -249,14 +297,6 @@ const MapScreen = () => {
           <button className="key" onClick={showAllMarkers}>Show All</button>
         </div>
       </div>
-
-
-      {/* <div className="navbar-Overlay">
-        <div className="buttons">
-          <Navbar className="Navbar"/> 
-        </div>
-      </div> */}
-
 
       {loading ? (
         <div className="loading-indicator">Loading map...</div>
@@ -285,6 +325,14 @@ const MapScreen = () => {
                 Latitude: {soldier.latitude}
                 <br />
                 Longitude: {soldier.longitude}
+                {/* Show vitals for soldier 1 */}
+                {soldier.id === 1 && soldierVitals && (
+                  <div>
+                    <strong>Heart Rate:</strong> {soldierVitals.heart_rate} bpm
+                    <br />
+                    <strong>Temperature:</strong> {soldierVitals.temperature} °C
+                  </div>
+                )}
               </Popup>
             </Marker>
           ))}
@@ -304,8 +352,6 @@ const MapScreen = () => {
                 <br />
                 Longitude: {enemy.longitude}
               </Popup>
-
-              
             </Marker>
           ))}
         </MapContainer>

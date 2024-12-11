@@ -7,6 +7,7 @@ import Mission from './Mission';
 import MapScreen from './MapScreen';
 import Communication from './Communication';
 import RearCam from './RearCam';
+import NightVisionCam from './NightVisionCam';
 import Navbar from './Navbar';
 import 'regenerator-runtime/runtime'; // Ensure this is required
 
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/MapScreen" element={<MapScreen />} />
                 <Route path="/Communication" element={<Communication />} />
                 <Route path="/Rearcam" element={<RearCam />} />
+                <Route path="/NightVisionCam" element={<NightVisionCam />} /> 
             </Routes>
         </>
     );
