@@ -1,0 +1,194 @@
+/* Map Base Layout */
+.map-base {
+    display: flex;
+    flex-direction: row;
+    background-color: #1a1a1a;
+    color: white;
+    height: 100vh;
+    position: relative;
+    z-index: 0;
+    justify-content: center;
+    margin: 0px;
+}
+
+/* BaseScreen.css */
+.map-container {
+    height: 100vh; /* Set height explicitly */
+    width: 100%;   /* Set width to fill the parent container */
+  }
+  
+
+/* Soldier List Styling */
+.soldier-list {
+    background-color: #333;
+    padding-right: 25px;
+    padding-left: 20px;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .soldier-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .soldier-list li {
+    margin: 5px 0;
+    padding-right: 5px;
+  }
+
+/* Enemy List Styling */
+.enemy-list {
+    background-color: #444;
+    padding-right: 25px;
+    padding-left: 20px;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.enemy-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.enemy-list li {
+    margin: 5px 0;
+    padding-right: 5px;
+}
+
+/* New Markers List Styling */
+.marker-list {
+    background-color: #555;
+    padding-right: 25px;
+    padding-left: 20px;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.marker-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.marker-list li {
+    margin: 5px 0;
+    padding-right: 5px;
+}
+
+/* Controls for Soldier, Enemy, and Marker List */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.controls button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background-color: #555;
+}
+
+/* Map Container */
+.map-container {
+    flex-grow: 1;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+/* Overlay Styles */
+.Overlay {
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    padding: 10px;
+    padding-top: 100px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.Buttons-Overlay {
+    padding: 30px;
+    position: absolute;
+    bottom: 20px;
+    left: 85%;
+    color: white;
+    padding: 10px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.navbar-Overlay {
+    padding: 10px;
+    position: absolute;
+    bottom: 5%;
+    left: center;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.Enemy-Overlay{
+    margin-top: 1%;
+    margin-left: 85%;
+    padding-top: 750px;
+    padding: 10px;
+    position: absolute;
+    left: center;
+    color: white;
+    border-radius: 5px;
+    z-index: 1000;
+  }
+/* Add blinking effect for low pulse */
+.blinking {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.low-pulse-notification {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 99, 71, 0.8);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.error-message {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}

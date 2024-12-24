@@ -1,18 +1,56 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./RearCam.css";
 import Navbar from "./Navbar";
 
 function RearCam() {
-  const raspberryPiIP = "http://192.168.56.246:8080"; // Replace with your Raspberry Pi's IP
+  const videoRef = useRef(null);
+
+  useEffect(() => {z
+    const getWebcamStream = async () => {
+      try {
+        // Check if mediaDevices and getUserMedia are supported
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          console.error("getUserMedia is not supported in this browser.");
+          alert("Your browser does not support webcam access.");
+          return;
+        }
+
+        // Request webcam access
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error("Error accessing webcam:", error);
+        alert("Error accessing webcam. Please check browser permissions or camera availability.");
+      }
+    };
+
+    getWebcamStream();
+
+    // Cleanup function to stop webcam when component unmounts
+    return () => {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop()); // Stop all video tracks
+      }
+    };
+  }, []);
 
   return (
     <div className="rearcam-container">
-      <iframe
+      {/* Add Navbar if needed */}
+      {/* <Navbar /> */}
+      {/* Video element for webcam stream */}
+      <video
         className="rearcam-stream"
-        src={`${raspberryPiIP}/?action=stream`}
-        allowFullScreen
-        title="Live Stream"
-      ></iframe>
+        ref={videoRef}
+        autoPlay
+        muted
+        playsInline
+        width="100%" // Customize width and height as needed
+      />
     </div>
   );
 }

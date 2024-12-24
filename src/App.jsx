@@ -8,6 +8,8 @@ import MapScreen from './MapScreen';
 import Communication from './Communication';
 import RearCam from './RearCam';
 import NightVisionCam from './NightVisionCam';
+import BaseScreen from './BaseScreen';
+import CameraComponent from './components/CameraComponent';
 import Navbar from './Navbar';
 import 'regenerator-runtime/runtime'; // Ensure this is required
 
@@ -32,7 +34,9 @@ function App() {
                 <Route path="/MapScreen" element={<MapScreen />} />
                 <Route path="/Communication" element={<Communication />} />
                 <Route path="/Rearcam" element={<RearCam />} />
-                <Route path="/NightVisionCam" element={<NightVisionCam />} /> 
+                <Route path="/NightVisionCam" element={<NightVisionCam />} />
+                <Route path="/BaseScreen" element={<BaseScreen />} />
+                <Route path="/CameraComponent" element={<CameraComponent />} /> // Add ARMode component here if needed
             </Routes>
         </>
     );

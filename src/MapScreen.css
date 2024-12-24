@@ -10,6 +10,21 @@
   margin: 0px;
 }
 
+.voice-assistant {
+  position: fixed;
+  bottom: 20px; /* Adjust this value to move it up or down */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  padding-right: 25px;
+  padding-left: 20px;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+
 .soldier-list {
   background-color: #333;
   padding-right: 25px;

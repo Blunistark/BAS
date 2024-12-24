@@ -2,12 +2,93 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { createClient } from "@supabase/supabase-js";
 import './MapScreen.css';
-import Navbar from "./Navbar";
 import supabase from "./supabase";
+import VoiceAssistant from './VoiceAssistant'; // Import the voice assistant component
+import artilleryImage from './assets/Aaa.jpg';  
+import medIcon from './assets/imgs/Med.jpg';
+import ArtIcon from './assets/imgs/Arty.jpg';
+import CavIcon from './assets/imgs/Cavh.jpg';
+import InfIcon from './assets/imgs/Inf.jpg';
+import SigIcon from './assets/imgs/Sig.jpg';
+import TDIcon from './assets/imgs/Td.jpg';
+import TranspIcon from './assets/imgs/Trans.jpg'
+import Unit from './assets/imgs/Unit.png';
+import HQ from './assets/imgs/HQ.png';
+import Enemy_Unit from './assets/imgs/Enemy-Unit.png';
 
 // Custom marker icons
+const UnitIcon= new L.Icon({
+  iconUrl: Unit,
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -20],
+});
+
+const HQIcon = new L.Icon({
+  iconUrl: HQ,
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -20],
+});
+
+const Enemy_UnitIcon = new L.Icon({
+  iconUrl: Enemy_Unit,
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -20],
+});
+
+const CavalryIcon = new L.Icon({
+  iconUrl: CavIcon,
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -20],
+});
+
+const TransportIcon = new L.Icon({
+  iconUrl: TranspIcon,
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -20],
+});
+
+const medicalSignalIcon = new L.Icon({
+  iconUrl: medIcon, // Replace with your actual image URL
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
+
+const tankDestroyerIcon = new L.Icon({
+  iconUrl: TDIcon, // Replace with your actual image URL
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
+
+const infantryIcon = new L.Icon({
+  iconUrl: InfIcon , // Replace with your actual image URL
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
+
+const antiAircraftIcon = new L.Icon({
+  iconUrl: artilleryImage, // Replace with your actual image URL
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
+
+const artilleryIcon = new L.Icon({
+  iconUrl: ArtIcon, // Use the imported artillery image
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
+
+
 const soldierIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
   iconSize: [25, 25],
@@ -22,9 +103,19 @@ const enemyIcon = new L.Icon({
   popupAnchor: [0, -20],
 });
 
+const signalIcon = new L.Icon({
+  iconUrl: SigIcon,
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -20],
+});
+
+
+
 const MapScreen = () => {
   const [soldiers, setSoldiers] = useState([]);
   const [enemies, setEnemies] = useState([]);
+  const [markers, setMarkers] = useState([]);
   const [soldierVitals, setSoldierVitals] = useState(null); // Store soldier vitals
   const [isAddingEnemy, setIsAddingEnemy] = useState(false);
   const [isRemovingEnemy, setIsRemovingEnemy] = useState(false);
@@ -32,8 +123,44 @@ const MapScreen = () => {
   const mapRef = useRef();
   const [enemyCount, setEnemyCount] = useState(0);
 
+  const soldier1 = {
+    name: "Soldier 1",
+    latitude: 13.0538,
+    longitude: 77.5674,
+  };
+
+  const markerIcons = {
+    Artillery: artilleryIcon,
+    MedicalSignals: medicalSignalIcon,
+    TankDestroyer: tankDestroyerIcon,
+    Infantry: infantryIcon,
+    AntiAircraft: antiAircraftIcon,
+    Signals : signalIcon,
+    Transport: TransportIcon,
+    Cavalry : CavalryIcon,
+    HQ : HQIcon,
+    Unit : UnitIcon,
+    Enemy_Unit: Enemy_UnitIcon
+  };
+
+
   // Display error messages
   const [error, setError] = useState(null);
+
+  // Fetch markers from Supabase
+  const fetchMarkers = useCallback(async () => {
+    try {
+      const { data, error } = await supabase.from("markers").select("*");
+      if (error) {
+        console.error("Error fetching markers:", error);
+        return;
+      }
+      setMarkers(data);
+    } catch (error) {
+      console.error("Unexpected error fetching markers:", error);
+    }
+  }, []);
+
 
   // Fetch initial soldier and enemy data
   const fetchData = useCallback(async () => {
@@ -126,6 +253,13 @@ const MapScreen = () => {
     setIsAddingEnemy(false);
   }, []);
 
+  const zoomToMarker = useCallback((latitude, longitude) => {
+    const map = mapRef.current;
+    if (map) {
+      map.flyTo([latitude, longitude], 16); // Adjust zoom level (14 is a good level for zooming into a marker)
+    }
+  }, []);
+
   // Remove enemy on marker click
   const handleEnemyMarkerClick = useCallback(async (id) => {
     if (isRemovingEnemy) {
@@ -184,6 +318,7 @@ const MapScreen = () => {
 
   useEffect(() => {
     fetchData();
+    fetchMarkers();
 
     // Subscribe to real-time updates for soldiers
     const soldierChannel = supabase
@@ -225,17 +360,44 @@ const MapScreen = () => {
       })
       .subscribe();
 
+
+      // Subscribe to real-time updates for markers
+    const markerChannel = supabase
+    .channel("markers")
+    .on("postgres_changes", { event: "*", schema: "public", table: "markers" }, (payload) => {
+      if (payload.eventType === "INSERT") {
+        setMarkers((prevMarkers) => [...prevMarkers, payload.new]);
+      } else if (payload.eventType === "UPDATE") {
+        setMarkers((prevMarkers) =>
+          prevMarkers.map((marker) =>
+            marker.id === payload.new.id ? payload.new : marker
+          )
+        );
+      } else if (payload.eventType === "DELETE") {
+        setMarkers((prevMarkers) =>
+          prevMarkers.filter((marker) => marker.id !== payload.old.id)
+        );
+      }
+    })
+    .subscribe();
+
     return () => {
       soldierChannel.unsubscribe();
       enemyChannel.unsubscribe();
+      markerChannel.unsubscribe();
     };
-  }, [fetchData]);
+  }, [fetchData , fetchMarkers]);
 
   return (
     <div className="map-screen">
       {error && <div className="error-message">{error}</div>}
 
       <div className="Overlay">
+
+        <div className="Voice-assistant">
+         <VoiceAssistant /> {/* Add VoiceAssistant */}
+        </div>
+      
         <div className="soldier-list">
           <p>Soldiers</p>
           {loading ? (
@@ -277,10 +439,12 @@ const MapScreen = () => {
           ) : (
             <ul>
               {enemies.map((enemy) => (
-                <li key={enemy.id}>
-                  <span>{enemy.name}</span>
-                </li>
-              ))}
+              <li key={enemy.id}>
+                <span onClick={() => zoomToMarker(enemy.latitude, enemy.longitude)}>
+                  {enemy.name}
+                </span>
+              </li>
+            ))}
             </ul>
           )}
         </div>
@@ -354,6 +518,23 @@ const MapScreen = () => {
               </Popup>
             </Marker>
           ))}
+           {/* Render user-defined markers */}
+           {markers.map((marker, index) => (
+        <Marker
+          key={index}
+          position={[marker.latitude, marker.longitude]}
+          icon={markerIcons[marker.type] || artilleryIcon} // Use the correct icon based on marker type
+        >
+          <Popup>
+            <strong>{marker.type}</strong>
+            <br />
+            Latitude: {marker.latitude}
+            <br />
+            Longitude: {marker.longitude}
+            <button onClick={() => deleteMarker(marker.id)}>Delete Marker</button>
+          </Popup>
+        </Marker>
+      ))}
         </MapContainer>
       )}
     </div>

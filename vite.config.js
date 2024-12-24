@@ -5,6 +5,7 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [react()],
   server: {
+    // https: true,
     host: '0.0.0.0', // Make the server accessible from other devices on the network
     port: 3000,       // You can change this if needed
   },
